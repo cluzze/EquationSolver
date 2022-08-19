@@ -16,6 +16,11 @@ int main(int argc, char *argv[])
 		case 2:
 			printf("Two roots: %f, %f\n", roots.x, roots.y);
 			break;
+		case 3:
+			printf("Infinite number of roots\n");
+			break;
+		default:
+			break;
 	}
 	return 0;
 }

@@ -48,6 +48,13 @@ Roots solve_equation(int argc, char* argv[])					//main function
 	Scalars scalars = {0, 0, 0};
 	Roots roots = {0, 0, 0};
 	scalars = parse_arguments(argc, argv);
+	if (float_equals(scalars.a, 0, EPS) &&
+		float_equals(scalars.b, 0, EPS) &&
+		float_equals(scalars.c, 0, EPS))
+	{
+		roots.n = 3;
+		return roots;
+	}
 	if (float_equals(scalars.a, 0, EPS))
 	{
 		if (float_equals(scalars.b, 0, EPS))
@@ -64,12 +71,7 @@ Roots solve_equation(int argc, char* argv[])					//main function
 
 Roots linear_solve(const Scalars scalars)
 {
-	Roots roots = {0, 0, 0};
-	if (!float_equals(scalars.c, 0, EPS))
-	{
-		roots.n = 1;
-		roots.x = (-scalars.c) / (scalars.b);
-	}
+	Roots roots = {1, (-scalars.c) / (scalars.b), 0};
 	return roots;
 }
 
