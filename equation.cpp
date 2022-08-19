@@ -78,7 +78,7 @@ Roots linear_solve(const Scalars scalars)
 Roots quadratic_solve(const Scalars scalars)
 {
 	Roots roots = {0, 0, 0};
-	float d = (scalars.b * scalars.b) - (4.0 * scalars.a * scalars.c);
+	double d = (scalars.b * scalars.b) - (4.0 * scalars.a * scalars.c);
 	if (float_equals(d, 0.0, EPS))
 	{
 		roots.n = 1;
@@ -130,9 +130,9 @@ int is_argument_valid(const char* const arg)
 	return (comma_ind != 0 && comma_ind != arg_size -1 && (sign_ind == -1 || sign_ind == 0));
 }
 
-float almost_my_atof(const char s[])
+double almost_my_atof(const char s[])
 {
-	float val, power;
+	double val, power;
 	int i, sign;
 	for (i = 0; isspace(s[i]); i++)
 		;
@@ -151,7 +151,7 @@ float almost_my_atof(const char s[])
 	return sign * val / power;
 }
 
-int float_equals(const float a, const float b, const float eps)
+int float_equals(const double a, const double b, const double eps)
 {
 	return fabs(a - b) <= eps;
 }

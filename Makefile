@@ -3,13 +3,13 @@
 CC=g++
 CFLAGS=-g -Wall -Wextra -Werror
 
-main.o: main.c
+main.o: main.cpp
 	$(CC) $(CFLAGS) -c $^
 
 test.o: test.c
 	$(CC) $(CFLAGS) -c $^
 
-equation.o: equation.h helper.h equation.c
+equation.o: equation.h helper.h equation.cpp
 	$(CC) $(CFLAGS) -c $^
 
 myapp: main.o equation.o
