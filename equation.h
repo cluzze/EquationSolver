@@ -3,16 +3,9 @@
 
 typedef struct
 {
-	float a;
-	float b;
-	float c;
-} Scalars;
-
-typedef struct
-{
 	int n;
-	float x;
-	float y;
+	double x;
+	double y;
 } Roots;
 
 Roots solve_equation(int argc, char* argv[]);

@@ -71,7 +71,7 @@ Roots solve_equation(int argc, char* argv[])					//main function
 
 Roots linear_solve(const Scalars scalars)
 {
-	Roots roots = {1, (-scalars.c) / (scalars.b), 0};
+	Roots roots = {1, round_to_zero((-scalars.c) / (scalars.b)), 0};
 	return roots;
 }
 
@@ -83,7 +83,7 @@ Roots quadratic_solve(const Scalars scalars)
 	{
 		roots.n = 1;
 		if (!float_equals(scalars.a, 0.0, EPS))
-			roots.x = (-scalars.b) / (2 * scalars.a);
+			roots.x = round_to_zero((-scalars.b) / (2 * scalars.a));
 		else
 			roots.x = 0;
 	}
@@ -94,8 +94,8 @@ Roots quadratic_solve(const Scalars scalars)
 	else
 	{
 		roots.n = 2;
-		roots.x = (-scalars.b + sqrt(d)) / (2 * scalars.a);
-		roots.y = (-scalars.b - sqrt(d)) / (2 * scalars.a);
+		roots.x = round_to_zero((-scalars.b + sqrt(d)) / (2 * scalars.a));
+		roots.y = round_to_zero((-scalars.b - sqrt(d)) / (2 * scalars.a));
 	}
 	return roots;
 }
@@ -154,6 +154,15 @@ double almost_my_atof(const char s[])
 int float_equals(const double a, const double b, const double eps)
 {
 	return fabs(a - b) <= eps;
+}
+
+double round_to_zero(const double a)
+{
+	if (float_equals(a, 0, EPS))
+	{
+		return 0;
+	}
+	return a;
 }
 
 void print_doc()

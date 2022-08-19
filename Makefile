@@ -6,7 +6,7 @@ CFLAGS=-g -Wall -Wextra -Werror
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c $^
 
-test.o: test.c
+test.o: test.cpp
 	$(CC) $(CFLAGS) -c $^
 
 equation.o: equation.h helper.h equation.cpp

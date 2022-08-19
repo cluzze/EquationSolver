@@ -3,6 +3,13 @@
 
 #include "equation.h"
 
+typedef struct
+{
+	double a;
+	double b;
+	double c;
+} Scalars;
+
 #define EPS 0.001
 /*solves equation like a linear one*/
 Roots linear_solve(const Scalars scalars);
@@ -21,6 +28,9 @@ int is_argument_valid(const char* const arg);
 
 /*compares two double with EPS precision*/
 int float_equals(const double a, const double b, const double eps);
+
+/*function to fix -0.000000*/
+double round_to_zero(const double a);
 
 /*prints "documentaion"*/
 void print_doc();
