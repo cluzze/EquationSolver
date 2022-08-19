@@ -4,19 +4,19 @@
 #include "equation.h"
 
 #define EPS 0.001
-/*solve equation like a linear one*/
+/*solves equation like a linear one*/
 Roots linear_solve(const Scalars scalars);
 
-/*solve equation like a quadratic one*/
+/*solves equation like a quadratic one*/
 Roots quadratic_solve(const Scalars scalars);
 
 /*atof which handles ','*/
 float almost_my_atof(const char s[]);
 
-/*solve equation like a linear one*/
+/*checks if program is run with correct arguments*/
 Scalars parse_arguments(int argc, char *argv[]);
 
-/*solve equation like a linear one*/
+/*checks if argument is a valid number*/
 int is_argument_valid(const char* const arg);
 
 /*compares two float with EPS precision*/
