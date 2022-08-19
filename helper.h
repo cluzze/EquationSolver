@@ -12,16 +12,16 @@ typedef struct
 
 #define EPS 0.001
 /*solves equation like a linear one*/
-Roots linear_solve(const Scalars scalars);
+void linear_solve(const Scalars scalars, Roots* roots);
 
 /*solves equation like a quadratic one*/
-Roots quadratic_solve(const Scalars scalars);
+void quadratic_solve(const Scalars scalars, Roots* roots);
 
 /*atof which handles ','*/
 double almost_my_atof(const char s[]);
 
 /*checks if program is run with correct arguments*/
-Scalars parse_arguments(int argc, char *argv[]);
+void parse_arguments(int argc, char *argv[], Scalars* scalars);
 
 /*checks if argument is a valid number*/
 int is_argument_valid(const char* const arg);

@@ -28,9 +28,9 @@ int main()
 							 {0, 1, 5},
 							 {0, 2.5, 5}};
 		Roots roots[3];
-		roots[0] = linear_solve(scalars[0]);
-		roots[1] = linear_solve(scalars[1]);
-		roots[2] = linear_solve(scalars[2]);
+		linear_solve(scalars[0], &roots[0]);
+		linear_solve(scalars[1], &roots[1]);
+		linear_solve(scalars[2], &roots[2]);
 		assert(roots[0].n == 1 && float_equals(roots[0].x, -1, EPS));
 		assert(roots[1].n == 1 && float_equals(roots[1].x, -5, EPS));
 		assert(roots[2].n == 1 && float_equals(roots[2].x, -2, EPS));
@@ -44,11 +44,11 @@ int main()
 							 {1, 0, 1},
 							 {1, 1, 0}};
 		Roots roots[4];
-		roots[0] = quadratic_solve(scalars[0]);
-		roots[1] = quadratic_solve(scalars[1]);
-		roots[2] = quadratic_solve(scalars[2]);
-		roots[3] = quadratic_solve(scalars[3]);
-		roots[4] = quadratic_solve(scalars[4]);
+	 	quadratic_solve(scalars[0], &roots[0]);
+		quadratic_solve(scalars[1], &roots[1]);
+		quadratic_solve(scalars[2], &roots[2]);
+		quadratic_solve(scalars[3], &roots[3]);
+		quadratic_solve(scalars[4], &roots[4]);
 		assert(roots[0].n == 2 && float_equals(roots[0].x, 0.61803, EPS) && float_equals(roots[0].y, -1.6180, EPS));
 		assert(roots[1].n == 2 && float_equals(roots[1].x, 0.35208, EPS) && float_equals(roots[1].y, -0.85208, EPS));
 		assert(roots[2].n == 1 && float_equals(roots[2].x, 1, EPS));
