@@ -3,16 +3,27 @@
 
 #include "equation.h"
 
-/*atof which handles ','*/
+/*!
+transforms char* to double
+\param[in] s char* to be converted
+*/
 double almost_my_atof(const char s[]);
 
-/*checks if argument is a valid number*/
+/*!
+Checks if argument is a valid number
+\param[in] arg to be checked
+*/
 int is_argument_valid(const char* const arg);
 
-/*function to fix -0.000000*/
+/*!
+Function to fix -0.000000
+\param a if a is almost zero it will be round to zero
+*/
 double round_to_zero(const double a);
 
-/*prints "documentaion"*/
+/*!
+Prints helpful info
+*/
 void print_doc();
 
 #endif
