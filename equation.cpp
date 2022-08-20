@@ -7,55 +7,30 @@
 #include "helper.h"
 #include "equation.h"
 
+
+#define TOK_DELIM " \n\t\a\r"
+
 //**********************************DEFINITIONS**********************************
 
-Roots solve_equation(int argc, char* argv[])					//main function
+void get_scalars(char** tokens, int tokens_len, Scalars* scalars)
 {
-	Scalars scalars = {0, 0, 0};
-	Roots roots = {0, 0, 0};
-	parse_arguments(argc, argv, &scalars);
-	if (float_equals(scalars.a, 0, EPS) &&
-		float_equals(scalars.b, 0, EPS) &&
-		float_equals(scalars.c, 0, EPS))
+	switch (tokens_len)
 	{
-		roots.n = 3;
-		return roots;
-	}
-	if (float_equals(scalars.a, 0, EPS))
-	{
-		if (float_equals(scalars.b, 0, EPS))
-		{
-			return roots;
-		}
-		else
-		{
-			linear_solve(scalars, &roots);
-			return roots;
-		}
-	}
-	quadratic_solve(scalars, &roots);
-	return roots;
-}
-
-void parse_arguments(int argc, char *argv[], Scalars* scalars)
-{
-	switch(argc)
-	{
-		case 2:
-			if (strcmp(argv[1], "help") == 0)
+		case 1:
+			if (strcmp(tokens[0], "help") == 0)
 			{
 				print_doc();
 				exit(EXIT_FAILURE);
 			}
 			break;
-		case 4:													//calling with 3 scalars of equation
-			if (is_argument_valid(argv[1]) 
-				&& is_argument_valid(argv[2])
-				&& is_argument_valid(argv[3]))
+		case 3:													//calling with 3 scalars of equation
+			if (is_argument_valid(tokens[0]) 
+				&& is_argument_valid(tokens[1])
+				&& is_argument_valid(tokens[2]))
 			{
-				scalars->a = almost_my_atof(argv[1]);
-				scalars->b = almost_my_atof(argv[2]);
-				scalars->c = almost_my_atof(argv[3]);
+				scalars->a = almost_my_atof(tokens[0]);
+				scalars->b = almost_my_atof(tokens[1]);
+				scalars->c = almost_my_atof(tokens[2]);
 			}
 			else
 			{
@@ -64,9 +39,64 @@ void parse_arguments(int argc, char *argv[], Scalars* scalars)
 			}
 			break;
 		default:												//calling with something else
-			printf("Incorrect arguments, try running with \"help\" option\n");
+			printf("Incorrect number of arguments, try running with \"help\" option\n");
 			exit(EXIT_FAILURE);
 	}
+}
+
+char** parse_line(char* line, int* len)
+{
+	int size = 120;
+	int pos = 0;
+	char** tokens = (char**)malloc(size * sizeof(char*));
+	char* token;
+
+	if (!tokens)
+	{
+		printf("tokens allocation failure\n");
+		exit(EXIT_FAILURE);
+	}
+	token = strtok(line, TOK_DELIM);
+	while (token)
+	{
+		tokens[pos++] = token;
+		if (pos >= size)
+		{
+			size *= 2;
+			tokens = (char**)realloc(tokens, size * sizeof(char*));
+			if (!tokens)
+			{
+				printf("tokens allocation failure\n");
+				exit(EXIT_FAILURE);
+			}
+		}
+
+		token = strtok(NULL, TOK_DELIM);
+	}
+
+	*len = pos;
+	tokens[pos] = NULL;
+	return tokens;
+}
+
+char *read_line(FILE* fd)
+{
+	char *line = NULL;
+	size_t bufsize = 0;
+
+	if (getline(&line, &bufsize, fd) == -1)
+	{
+		if (feof(fd))
+		{
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			perror("readline");
+			exit(EXIT_FAILURE);
+		}
+	}
+	return line;
 }
 
 void linear_solve(const Scalars scalars, Roots* roots)

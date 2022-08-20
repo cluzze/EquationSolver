@@ -1,26 +1,65 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "equation.h"
 
-int main(int argc, char *argv[])
+#define NDEBUG
+
+int main()
 {
-	Roots roots = solve_equation(argc, argv);
-	switch (roots.n)
+	char* line = NULL;
+	char** tokens = NULL;
+	int tokens_len = 0;
+	FILE* fd = stdin;
+
+#ifdef NDEBUG
+	fd = fopen("tests.txt", "r");
+	FILE* outfd = fopen("output.txt", "w");
+#endif
+	while ((line = read_line(fd)))
 	{
-		case 0:
-			printf("No roots\n");
-			break;
-		case 1:
-			printf("One root: %f\n", roots.x);
-			break;
-		case 2:
-			printf("Two roots: %f, %f\n", roots.x, roots.y);
-			break;
-		case 3:
-			printf("Infinite number of roots\n");
-			break;
-		default:
-			break;
+		tokens = parse_line(line, &tokens_len);
+		Roots roots = {0, 0, 0};
+		Scalars scalars = {0, 0, 0};
+		get_scalars(tokens, tokens_len, &scalars);
+
+		if (float_equals(scalars.a, 0, EPS) &&
+			float_equals(scalars.b, 0, EPS) &&
+			float_equals(scalars.c, 0, EPS))
+		{
+			roots.n = 3;
+		}
+		else if (float_equals(scalars.a, 0, EPS))
+		{
+			if (float_equals(scalars.b, 0, EPS))
+			{
+				roots.n = 0;
+			}
+			else
+			{
+				linear_solve(scalars, &roots);
+			}
+		}
+		else
+		{
+			quadratic_solve(scalars, &roots);
+		}
+		switch(roots.n)
+		{
+			case 0:
+				fprintf(outfd, "No roots\n");
+				break;
+			case 1:
+				fprintf(outfd, "One root: %f\n", roots.x);
+				break;
+			case 2:
+				fprintf(outfd, "Two roots: %f, %f\n", roots.x, roots.y);
+				break;
+			case 3:
+				fprintf(outfd, "Infinite number of roots\n");
+				break;
+		}
 	}
-	return 0;
+	free(line);
+    free(tokens);
 }
