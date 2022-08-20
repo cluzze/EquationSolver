@@ -19,8 +19,6 @@ typedef struct
 	double y;
 } Roots;
 
-char* read_line(FILE* fd);
-
 char** parse_line(char* line, int* tokens_len);
 
 void get_scalars(char** tokens, int tokens_len, Scalars* scalars);
@@ -33,5 +31,7 @@ void quadratic_solve(const Scalars scalars, Roots* roots);
 
 /*compares two double with EPS precision*/
 int float_equals(const double a, const double b, const double eps);
+
+void compare_two_files(FILE* fd1, FILE* fd2);
 
 #endif

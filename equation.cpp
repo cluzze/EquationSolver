@@ -79,26 +79,6 @@ char** parse_line(char* line, int* len)
 	return tokens;
 }
 
-char *read_line(FILE* fd)
-{
-	char *line = NULL;
-	size_t bufsize = 0;
-
-	if (getline(&line, &bufsize, fd) == -1)
-	{
-		if (feof(fd))
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			perror("readline");
-			exit(EXIT_FAILURE);
-		}
-	}
-	return line;
-}
-
 void linear_solve(const Scalars scalars, Roots* roots)
 {
 	roots->n = 1;
@@ -191,6 +171,29 @@ double round_to_zero(const double a)
 		return 0;
 	}
 	return a;
+}
+
+void compare_two_files(FILE* fd1, FILE* fd2)			// doen not word :(
+{
+	char* line1 = NULL, line2 = NULL;
+	size_t bufsize1 = 0, bufsize2 = 0;
+	int tests_passed = 0;
+	int nline = 1;
+	while (getline(&line1, &bufsize1, fd1) != -1 && getline(&line2, &bufsize2, fd2) != -1)
+	{
+		++nline;
+		if (strcmp(line1, line2) != 0)
+		{
+			printf("Failed on line: %d, expected %s, found %s\n", nline, line2, line1);
+		}
+		else
+		{
+			++tests_passed;
+		}
+	}
+	free(line1);
+	free(line2);
+	printf("Total tests passed: %d\n", tests_passed);
 }
 
 void print_doc()
