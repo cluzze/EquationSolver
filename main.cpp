@@ -3,7 +3,7 @@
 
 #include "equation.h"
 
-#define NDEBUG
+//#define NDEBUG
 
 int main()
 {
@@ -11,10 +11,10 @@ int main()
 	char** tokens = NULL;
 	int tokens_len = 0;
 	FILE* fd = stdin;
-
+	FILE* outfd = stdout;
 #ifdef NDEBUG
 	fd = fopen("tests.txt", "r");
-	FILE* outfd = fopen("output.txt", "w");
+	outfd = fopen("output.txt", "w");
 #endif
 	while ((line = read_line(fd)))
 	{
