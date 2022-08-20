@@ -173,27 +173,28 @@ double round_to_zero(const double a)
 	return a;
 }
 
-void compare_two_files(FILE* fd1, FILE* fd2)			// doen not word :(
+void compare_two_files(FILE* fd1, FILE* fd2)			// it works!!!
 {
-	char* line1 = NULL, line2 = NULL;
+	char* line1 = NULL, *line2 = NULL;
 	size_t bufsize1 = 0, bufsize2 = 0;
-	int tests_passed = 0;
+	int ntests = 0, tests_passed = 0;
 	int nline = 1;
 	while (getline(&line1, &bufsize1, fd1) != -1 && getline(&line2, &bufsize2, fd2) != -1)
 	{
-		++nline;
-		if (strcmp(line1, line2) != 0)
+		++ntests;
+		if (strncmp(line1, line2, strlen(line1) - 1) != 0)
 		{
-			printf("Failed on line: %d, expected %s, found %s\n", nline, line2, line1);
+			printf("Failed on line: %d\nexpected \"%s\"\nfound \"%s\"\n", nline, line2, line1);
 		}
 		else
 		{
 			++tests_passed;
 		}
+		++nline;
 	}
 	free(line1);
 	free(line2);
-	printf("Total tests passed: %d\n", tests_passed);
+	printf("Total tests passed: %d/%d\n", tests_passed, ntests);
 }
 
 void print_doc()

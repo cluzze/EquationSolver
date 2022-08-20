@@ -14,8 +14,15 @@ int main()
 	FILE* inputfd = stdin;
 	FILE* outfd = stdout;
 #ifdef NDEBUG
-	inputfd = fopen("tests.txt", "r");
-	outfd = fopen("output.txt", "w+");
+	char input_filename[] = "Tests/tests.txt";
+	char output_filename[] = "Tests/output.txt";
+	inputfd = fopen(input_filename, "r");
+	if (!inputfd)
+	{
+		printf("failed to open inputdf: %s", input_filename);
+		exit(EXIT_FAILURE);
+	}
+	outfd = fopen(output_filename, "w");
 #endif
 	while (getline(&line, &bufsize, inputfd) != -1)
 	{
@@ -64,13 +71,25 @@ int main()
 		}
 	}
 	free(line);
-#ifdef NDEBUG
-	FILE* expected_output = fopen("expect.txt", "r");
-	compare_two_files(outfd, expected_output);
-	fclose(expected_output);
-#endif
 	fclose(inputfd);
 	fclose(outfd);
-	
+#ifdef NDEBUG
+	char expected_filename[] = "Tests/expect.txt";
+	FILE* expected_output = fopen(expected_filename, "r");
+	if (!expected_filename)
+	{
+		printf("failed to open expected fd: %s", expected_filename);
+		exit(EXIT_FAILURE);
+	}
+	outfd = fopen(output_filename, "r");
+	if (!outfd)
+	{
+		printf("failed to open outdf: %s", output_filename);
+		exit(EXIT_FAILURE);
+	}
+	compare_two_files(outfd, expected_output);
+	fclose(expected_output);
+	fclose(outfd);
+#endif	
 	return 0;
 }
