@@ -8,7 +8,7 @@
 #include "equation.h"
 
 
-#define TOK_DELIM " \n\t\a\r"
+#define TOK_DELIM " \n\t"
 
 //**********************************DEFINITIONS**********************************
 
