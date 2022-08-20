@@ -48,7 +48,7 @@ char** parse_line(char* line, int* len)
 {
 	int size = 120;
 	int pos = 0;
-	char** tokens = (char**)malloc(size * sizeof(char*));
+	char** tokens = (char**)calloc(size, sizeof(char*));
 	char* token;
 
 	if (!tokens)

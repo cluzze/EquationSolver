@@ -13,6 +13,7 @@ int main()
 	int tokens_len = 0;
 	FILE* inputfd = stdin;
 	FILE* outfd = stdout;
+
 #ifdef NDEBUG
 	char input_filename[] = "Tests/tests.txt";
 	char output_filename[] = "Tests/output.txt";
@@ -24,6 +25,7 @@ int main()
 	}
 	outfd = fopen(output_filename, "w");
 #endif
+
 	while (getline(&line, &bufsize, inputfd) != -1)
 	{
 		tokens = parse_line(line, &tokens_len);
@@ -70,9 +72,11 @@ int main()
 				break;
 		}
 	}
+
 	free(line);
 	fclose(inputfd);
 	fclose(outfd);
+
 #ifdef NDEBUG
 	char expected_filename[] = "Tests/expect.txt";
 	FILE* expected_output = fopen(expected_filename, "r");
@@ -91,5 +95,6 @@ int main()
 	fclose(expected_output);
 	fclose(outfd);
 #endif	
+	
 	return 0;
 }
