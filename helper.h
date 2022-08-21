@@ -3,16 +3,27 @@
 
 #include "equation.h"
 
-/*atof which handles ','*/
+/*!
+ *	\brief atof which also hadles ','
+ *	\param[in] s - string to be converted to number
+ */
 double almost_my_atof(const char s[]);
 
-/*checks if argument is a valid number*/
+/*!
+ *	\brief checks if line is a vild number
+ *	\param[in] arg - line to be checked
+ */
 int is_argument_valid(const char* const arg);
 
-/*function to fix -0.000000*/
+/*!
+ *	\brief if a number is close to zero, like -0.0000 it will be rounded
+ *	\param[in] a - number to be rounded
+ */
 double round_to_zero(const double a);
 
-/*prints "documentaion"*/
+/*!
+ *	\brief prints some helpful info
+ */
 void print_doc();
 
 #endif
