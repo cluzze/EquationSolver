@@ -8,34 +8,40 @@
 
 #ifndef _QUADRATIC_EQUATION_SOLVER_
 #define _QUADRATIC_EQUATION_SOLVER_
-
+#include <math.h>
 #include <stdio.h>
 
-#define EPS 0.001
+const double EPS = 0.001;
+
+enum ERRORS
+{
+    ALL_GOOD = 0,
+    ALL_BAD = 1
+};
 
 //! number of roots
 enum NROOTS
 {
-	NO_ROOTS,
-	ONE_ROOT,
-	TWO_ROOTS,
-	INFINITE
+	NO_ROOTS = 0,
+	ONE_ROOT = 1,
+	TWO_ROOTS = 2,
+	INFINITE = 3
 };
 
 //! three parameters of equation
 typedef struct
 {
-	double a;
-	double b;
-	double c;
+	double a = NAN;
+	double b = NAN;
+	double c = NAN;
 } Scalars;
 
 //! info about equation's roots
 typedef struct
 {
-	int n;
-	double x;
-	double y;
+	int n = 0;
+	double x = NAN;
+	double y = NAN;
 } Roots;
 
 

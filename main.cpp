@@ -3,10 +3,12 @@
 
 #include "equation.h"
 
-//#define DEBUG
+#define DEBUG
 
 int main()
 {
+	printf("\e[0;36m");
+
 	char* line = NULL;
 	size_t bufsize = 0;
 	char** tokens = NULL;

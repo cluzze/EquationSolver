@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -8,8 +7,9 @@
 #include "helper.h"
 #include "equation.h"
 
-#define BUF_SIZE 16
 #define TOK_DELIM " \n\t\a\r"
+
+const int BUF_SIZE =  16;
 
 //**********************************DEFINITIONS**********************************
 
@@ -54,12 +54,12 @@ char** parse_line(char* line, int* len)
 	int size = BUF_SIZE;
 	int pos = 0;
 	char** tokens = (char**)calloc(size, sizeof(char*));
-	char* token;
+	char* token = NULL;
 
 	if (!tokens)
 	{
 		printf("tokens allocation failure\n");
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	token = strtok(line, TOK_DELIM);
 	while (token)
