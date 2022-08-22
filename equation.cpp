@@ -94,6 +94,10 @@ char** parse_line(char* line, int* len)
 
 void solve(const Scalars scalars, Roots* roots)
 {
+	assert(!isnan(scalars.a));
+	assert(!isnan(scalars.b));
+	assert(!isnan(scalars.c));
+
 	if (float_equals(scalars.a, 0, EPS) &&
 		float_equals(scalars.b, 0, EPS) &&
 		float_equals(scalars.c, 0, EPS))
