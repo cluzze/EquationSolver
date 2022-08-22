@@ -95,8 +95,8 @@ char** parse_line(char* line, int* len)
 void solve(const Scalars scalars, Roots* roots)
 {
 	if (float_equals(scalars.a, 0, EPS) &&
-			float_equals(scalars.b, 0, EPS) &&
-			float_equals(scalars.c, 0, EPS))
+		float_equals(scalars.b, 0, EPS) &&
+		float_equals(scalars.c, 0, EPS))
 		{
 			roots->n = INFINITE;
 		}
@@ -152,6 +152,7 @@ int is_argument_valid(const char* const arg)
 	int comma_ind = 0, sign_ind = 0;
 	int i = 0;
 	int c = 0;
+
 	int arg_size = strlen(arg);
 	comma_ind = sign_ind = -1;
 	for (i = 0; i < arg_size; i++)

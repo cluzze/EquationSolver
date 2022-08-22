@@ -3,7 +3,7 @@
 
 #include "equation.h"
 
-#define DEBUG
+//#define DEBUG
 
 int main()
 {
@@ -19,13 +19,13 @@ int main()
 #ifdef DEBUG
 	char input_filename[] = "Tests/tests.txt";
 	char output_filename[] = "Tests/output.txt";
-	inputfd = fopen(input_filename, "r");
+	inputfd = fopen(input_filename, "rb");
 	if (!inputfd)
 	{
 		printf("failed to open inputdf: %s", input_filename);
 		exit(EXIT_FAILURE);
 	}
-	outfd = fopen(output_filename, "w");
+	outfd = fopen(output_filename, "wb");
 #endif
 
 	while (getline(&line, &bufsize, inputfd) != -1)
@@ -34,7 +34,7 @@ int main()
 		if (!tokens) continue;
 		Roots roots = {0, 0, 0};
 		Scalars scalars = {0, 0, 0};
-		if(!get_scalars(tokens, tokens_len, &scalars)) continue;
+		if (!get_scalars(tokens, tokens_len, &scalars)) continue;
 
 		free(tokens);
 
@@ -63,13 +63,13 @@ int main()
 
 #ifdef DEBUG
 	char expected_filename[] = "Tests/expect.txt";
-	FILE* expected_output = fopen(expected_filename, "r");
+	FILE* expected_output = fopen(expected_filename, "rb");
 	if (!expected_filename)
 	{
 		printf("failed to open expected fd: %s", expected_filename);
 		exit(EXIT_FAILURE);
 	}
-	outfd = fopen(output_filename, "r");
+	outfd = fopen(output_filename, "rb");
 	if (!outfd)
 	{
 		printf("failed to open outdf: %s", output_filename);
