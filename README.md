@@ -1,7 +1,5 @@
 # EquationSolver
-Hi thanks for trying out my quadratic equation solver
-run this program with coefficients of the equation as arguments
-you can use floating point numbers with dot or comma
-"equation.h\" header provides you with solve_equation() function, which will return Roots struct
-Roots.n is the number of roots, Roots.x and Roots.y are roots value, Roots.x > Roots.y
-If equation has only one root, it will be stored in Roots.x
+Program for solving square or linear equation
+takes 3 arguments - 3 parameters of equation from standart input or file
+you can enable DEBUG mode, uncommenting line #define DEBUG
+in this mode program will run tests stored in Tests/tests.txt and compare results with content in Tests/expect.txt
