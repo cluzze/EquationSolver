@@ -11,9 +11,12 @@
 
 const int BUF_SIZE =  16;
 
+#define FAILURE 0
+#define SUCCESS 1
+
 //**********************************DEFINITIONS**********************************
 
-void get_scalars(char** tokens, int tokens_len, Scalars* scalars)
+int get_scalars(char** tokens, int tokens_len, Scalars* scalars)
 {
 	assert(tokens && "passing NULL pointer in function get_scalars");
 
@@ -23,8 +26,12 @@ void get_scalars(char** tokens, int tokens_len, Scalars* scalars)
 			if (strcmp(tokens[0], "help") == 0)
 			{
 				print_doc();
-				exit(EXIT_FAILURE);
 			}
+			else
+			{
+				printf("Incorrect number of arguments, try running with \"help\" option\n");
+			}
+			return FAILURE;
 			break;
 		case 3:													//calling with 3 scalars of equation
 			if (is_argument_valid(tokens[0]) 
@@ -38,13 +45,14 @@ void get_scalars(char** tokens, int tokens_len, Scalars* scalars)
 			else
 			{
 				printf("Incorrect arguments, try running with \"help\" option\n");
-				exit(EXIT_FAILURE);
+				return FAILURE;
 			}
 			break;
 		default:												//calling with something else
 			printf("Incorrect number of arguments, try running with \"help\" option\n");
-			exit(EXIT_FAILURE);
+			return FAILURE;
 	}
+	return SUCCESS;
 }
 
 char** parse_line(char* line, int* len)
@@ -72,7 +80,7 @@ char** parse_line(char* line, int* len)
 			if (!tokens)
 			{
 				printf("tokens allocation failure\n");
-				exit(EXIT_FAILURE);
+				return NULL;
 			}
 		}
 

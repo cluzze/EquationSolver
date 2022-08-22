@@ -39,7 +39,7 @@ typedef struct
 //! info about equation's roots
 typedef struct
 {
-	int n = 0;
+	int n = NO_ROOTS;
 	double x = NAN;
 	double y = NAN;
 } Roots;
@@ -58,7 +58,7 @@ char** parse_line(char* line, int* tokens_len);
  *	\param[in] tokens_len - size of the array
  *	\param[out] scalars - received parameters
  */
-void get_scalars(char** tokens, int tokens_len, Scalars* scalars);
+int get_scalars(char** tokens, int tokens_len, Scalars* scalars);
 
 /*!
  *	\brief solves equation like a linear one

@@ -31,9 +31,10 @@ int main()
 	while (getline(&line, &bufsize, inputfd) != -1)
 	{
 		tokens = parse_line(line, &tokens_len);
+		if (!tokens) continue;
 		Roots roots = {0, 0, 0};
 		Scalars scalars = {0, 0, 0};
-		get_scalars(tokens, tokens_len, &scalars);
+		if(!get_scalars(tokens, tokens_len, &scalars)) continue;
 
 		free(tokens);
 
