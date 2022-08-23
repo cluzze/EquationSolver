@@ -16,9 +16,10 @@ const int BUF_SIZE =  16;
 
 //**********************************DEFINITIONS**********************************
 
-int get_scalars(char** tokens, int tokens_len, Scalars* scalars)
+int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 {
-	assert(tokens && "passing NULL pointer in function get_scalars");
+	assert(tokens && "passing NULL pointer to tokens in function get_scalars");
+	assert(scalars && "passing NULL pointer to scalars in function get_scalars");
 
 	switch (tokens_len)
 	{
@@ -55,12 +56,14 @@ int get_scalars(char** tokens, int tokens_len, Scalars* scalars)
 	return SUCCESS;
 }
 
-char** parse_line(char* line, int* len)
+char** parse_line(char* line, size_t* len)
 {
-	assert(line && "passing NULL pointer in function parse_line");
+	assert(line && "passing NULL pointer to line in function parse_line");
+	assert(len && "passing NULL pointer to len in function parse_line");
 
-	int size = BUF_SIZE;
-	int pos = 0;
+	size_t size = BUF_SIZE;
+	size_t pos = 0;
+
 	char** tokens = (char**)calloc(size, sizeof(char*));
 	char* token = NULL;
 
@@ -69,6 +72,7 @@ char** parse_line(char* line, int* len)
 		printf("tokens allocation failure\n");
 		return NULL;
 	}
+
 	token = strtok(line, TOK_DELIM);
 	while (token)
 	{
@@ -89,6 +93,7 @@ char** parse_line(char* line, int* len)
 
 	*len = pos;
 	tokens[pos] = NULL;
+
 	return tokens;
 }
 
@@ -97,6 +102,12 @@ void solve(const Scalars scalars, Roots* roots)
 	assert(!isnan(scalars.a));
 	assert(!isnan(scalars.b));
 	assert(!isnan(scalars.c));
+
+	assert(isfinite(scalars.a));
+	assert(isfinite(scalars.b));
+	assert(isfinite(scalars.c));
+
+	assert(roots && "passing NULL pointer to roots in function parse_line");
 
 	if (float_equals(scalars.a, 0, EPS) &&
 		float_equals(scalars.b, 0, EPS) &&
@@ -188,6 +199,7 @@ double almost_my_atof(const char s[])
 
 	double val = NAN, power = NAN;
 	int i = 0, sign = 0;
+
 	for (i = 0; isspace(s[i]); i++)
 		;
 	sign = (s[i] == '-') ? -1 : 1;
@@ -228,6 +240,7 @@ void compare_two_files(FILE* fd1, FILE* fd2)			// it works!!!
 	size_t bufsize1 = 0, bufsize2 = 0;
 	int ntests = 0, tests_passed = 0;
 	int nline = 1;
+
 	while (getline(&line1, &bufsize1, fd1) != -1 && getline(&line2, &bufsize2, fd2) != -1)
 	{
 		++ntests;

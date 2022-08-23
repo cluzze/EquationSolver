@@ -50,7 +50,7 @@ typedef struct
  *	\param[in] line - input line
  *	\param[out] tokens_len - number of words
  */
-char** parse_line(char* line, int* tokens_len);
+char** parse_line(char* line, size_t* tokens_len);
 
 /*!
  *	\brief gets parameters of equation from words if its possible
@@ -58,21 +58,7 @@ char** parse_line(char* line, int* tokens_len);
  *	\param[in] tokens_len - size of the array
  *	\param[out] scalars - received parameters
  */
-int get_scalars(char** tokens, int tokens_len, Scalars* scalars);
-
-/*!
- *	\brief solves equation like a linear one
- *	\param[in] scalars - parameters
- *	\param[out] roots - roots of equation
- */
-void linear_solve(const Scalars scalars, Roots* roots);
-
-/*!
- *	\brief solves equation like a linear one
- *	\param[in] scalars - parameters
- *	\param[out] roots - roots of equation
- */
-void quadratic_solve(const Scalars scalars, Roots* roots);
+int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars);
 
 /*!
  *	\brief check if two foating point numbers are equal with EPF precision

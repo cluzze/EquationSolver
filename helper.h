@@ -4,6 +4,20 @@
 #include "equation.h"
 
 /*!
+ *  \brief solves equation like a linear one
+ *  \param[in] scalars - parameters
+ *  \param[out] roots - roots of equation
+ */
+void linear_solve(const Scalars scalars, Roots* roots);
+
+/*!
+ *  \brief solves equation like a linear one
+ *  \param[in] scalars - parameters
+ *  \param[out] roots - roots of equation
+ */
+void quadratic_solve(const Scalars scalars, Roots* roots);
+
+/*!
  *	\brief atof which also hadles ','
  *	\param[in] s - string to be converted to number
  */
