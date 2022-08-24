@@ -48,7 +48,7 @@ int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 
 	switch (tokens_len)
 	{
-		case HELp:
+		case HELP:
 			if (strcmp(tokens[0], "help") == 0)
 			{
 				print_doc();
