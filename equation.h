@@ -45,14 +45,14 @@ typedef struct
 } Roots;
 
 
-/*!
+/**
  *	\brief parses input line into words
  *	\param[in] line - input line
  *	\param[out] tokens_len - number of words
  */
 char** parse_line(char* line, size_t* tokens_len);
 
-/*!
+/**
  *	\brief gets parameters of equation from words if its possible
  *	\param[in] tokens - array of words
  *	\param[in] tokens_len - size of the array

@@ -3,7 +3,7 @@
 
 #include "equation.h"
 
-//#define DEBUG
+#define DEBUG
 
 int main()
 {
@@ -56,13 +56,16 @@ int main()
 				fprintf(outfd, "No roots\n");
 				break;
 			case ONE_ROOT:
-				fprintf(outfd, "One root: %f\n", roots.x);
+				fprintf(outfd, "One root: %lg\n", roots.x);
 				break;
 			case TWO_ROOTS:
-				fprintf(outfd, "Two roots: %f, %f\n", roots.x, roots.y);
+				fprintf(outfd, "Two roots: %lg, %lg\n", roots.x, roots.y);
 				break;
 			case INFINITE:
 				fprintf(outfd, "Infinite number of roots\n");
+				break;
+			default:
+				fprintf(outfd, "unknown\n");
 				break;
 		}
 
