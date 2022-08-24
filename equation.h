@@ -11,7 +11,7 @@
 #include <math.h>
 #include <stdio.h>
 
-const double EPS = 0.001;
+const double EPS = 0.00001;
 
 enum ERRORS
 {

@@ -7,6 +7,15 @@
 #include "helper.h"
 #include "equation.h"
 
+#define MYASSERT(condition)																		\
+	if (!(condition))																			\
+	{																							\
+		printf("Error: %s\nAccured in function: %s, from file: %s, on line: %d\n",				\
+			#condition, __PRETTY_FUNCTION__, __FILE__, __LINE__);								\
+		fflush(stdout);																			\
+		abort();																				\
+	}																							
+
 #define TOK_DELIM " \n\t\a\r"
 
 const size_t BUF_SIZE = 4;
@@ -17,15 +26,19 @@ const size_t BUF_SIZE = 4;
 enum SIGN
 {
 	NEG = -1,
-	POS = 1
+	POS =  1
 };
 
 //**********************************DEFINITIONS**********************************
 
 int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 {
-	assert(tokens && "passing NULL pointer to tokens in function get_scalars");
-	assert(scalars && "passing NULL pointer to scalars in function get_scalars");
+	//assert(tokens  && "passing NULL pointer to tokens in function get_scalars");
+	//assert(scalars && "passing NULL pointer to scalars in function get_scalars");
+
+	MYASSERT(tokens  && "passing NULL pointer to tokens in function get_scalars")
+	MYASSERT(scalars && "passing NULL pointer to scalars in function get_scalars")
+
 
 	switch (tokens_len)
 	{
@@ -41,7 +54,7 @@ int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 			return FAILURE;
 			break;
 		case 3:													//calling with 3 scalars of equation
-			if (is_argument_valid(tokens[0]) 
+			if (   is_argument_valid(tokens[0]) 
 				&& is_argument_valid(tokens[1])
 				&& is_argument_valid(tokens[2]))
 			{
@@ -64,8 +77,11 @@ int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 
 char** parse_line(char* line, size_t* len)
 {
-	assert(line && "passing NULL pointer to line in function parse_line");
-	assert(len && "passing NULL pointer to len in function parse_line");
+	//assert(line && "passing NULL pointer to line in function parse_line");
+	//assert(len  && "passing NULL pointer to len in function parse_line");
+
+	MYASSERT(line && "passing NULL pointer to line in function parse_line")
+	MYASSERT(len  && "passing NULL pointer to len in function parse_line")
 
 	size_t size = BUF_SIZE;
 	size_t pos 	= 0;
@@ -98,7 +114,7 @@ char** parse_line(char* line, size_t* len)
 		token = strtok(NULL, TOK_DELIM);
 	}
 
-	*len = pos;
+	*len        = pos;
 	tokens[pos] = NULL;
 
 	return tokens;
@@ -106,11 +122,17 @@ char** parse_line(char* line, size_t* len)
 
 void solve(const Scalars scalars, Roots* roots)
 {
-	assert(isfinite(scalars.a));
-	assert(isfinite(scalars.b));
-	assert(isfinite(scalars.c));
+	//assert(isfinite(scalars.a));
+	//assert(isfinite(scalars.b));
+	//assert(isfinite(scalars.c));
 
-	assert(roots && "passing NULL pointer to roots in function parse_line");
+	//assert(roots && "passing NULL pointer to roots in function parse_line");
+
+	MYASSERT(isfinite(scalars.a))
+	MYASSERT(isfinite(scalars.b))
+	MYASSERT(isfinite(scalars.c))
+
+	MYASSERT(roots && "passing NULL pointer to roots in function parse_line")
 
 	if (float_equals(scalars.a, 0, EPS))
 	{
@@ -139,7 +161,7 @@ void solve(const Scalars scalars, Roots* roots)
 			else
 			{
 				roots->n = TWO_ROOTS;
-				roots->x = sqrt(-scalars.c / scalars.a);
+				roots->x =  sqrt(-scalars.c / scalars.a);
 				roots->y = -sqrt(-scalars.c / scalars.a);
 			}
 		}
@@ -198,7 +220,10 @@ void quadratic_solve(const Scalars scalars, Roots* roots)
 
 int is_argument_valid(const char* const arg)
 {
-	assert(arg && "passing NULL pointer in function is_argument_valid");
+	//assert(arg && "passing NULL pointer in function is_argument_valid");
+
+	MYASSERT(arg && "passing NULL pointer in function is_argument_valid")
+
 	size_t comma_ind = 0;
 	size_t sign_ind  = 0;
 	size_t i         = 0;
@@ -233,7 +258,9 @@ int is_argument_valid(const char* const arg)
 
 double almost_my_atof(const char s[])
 {
-	assert(s && "passing NULL pointer in function almost_my_atof");
+	//assert(s && "passing NULL pointer in function almost_my_atof");
+
+	MYASSERT(s && "passing NULL pointer in function almost_my_atof")
 
 	double val   = NAN;
 	double power = NAN;
@@ -266,18 +293,22 @@ double almost_my_atof(const char s[])
 
 int float_equals(const double a, const double b, const double eps)
 {
-	assert(isfinite(a));
+	//assert(isfinite(a)  );
+	//assert(isfinite(b)  );
+	//assert(isfinite(eps));
 
-	assert(isfinite(b));
-
-	assert(isfinite(eps));
+	MYASSERT(isfinite(a)  )
+	MYASSERT(isfinite(b)  )
+	MYASSERT(isfinite(eps))
 
 	return fabs(a - b) <= eps;
 }
 
 double round_to_zero(const double a)
 {
-	assert(isfinite(a));
+	//assert(isfinite(a));
+
+	MYASSERT(isfinite(a))
 
 	if (float_equals(a, 0, EPS))
 	{
@@ -288,8 +319,11 @@ double round_to_zero(const double a)
 
 void compare_two_files(FILE* fd1, FILE* fd2)			// it works!!!
 {
-	assert(fd1 && "passing NULL pointer to FILE fd1 in function compare_two_files");
-	assert(fd2 && "passing NULL pointer to FILE fd2 in function compare_two_files");
+	//assert(fd1 && "passing NULL pointer to FILE fd1 in function compare_two_files");
+	//assert(fd2 && "passing NULL pointer to FILE fd2 in function compare_two_files");
+
+	MYASSERT(fd1 && "passing NULL pointer to FILE fd1 in function compare_two_files")
+	MYASSERT(fd2 && "passing NULL pointer to FILE fd2 in function compare_two_files")
 
 	char* line1 = NULL, *line2 = NULL;
 	size_t bufsize1 = 0, bufsize2     = 0;

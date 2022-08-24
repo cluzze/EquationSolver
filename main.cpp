@@ -3,7 +3,7 @@
 
 #include "equation.h"
 
-#define DEBUG
+//#define DEBUG
 
 int main()
 {
