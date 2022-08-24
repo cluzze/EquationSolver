@@ -1,0 +1,16 @@
+Infinite number of roots
+No roots
+One root: 0
+One root: -1
+One root: 0
+No roots
+Two roots: 0, -1
+No roots
+Infinite number of roots
+No roots
+One root: 0
+One root: -1
+One root: 0
+No roots
+Two roots: 0, -1
+No roots

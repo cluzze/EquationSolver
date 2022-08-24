@@ -3,36 +3,41 @@
 
 #include "equation.h"
 
-typedef struct
-{
-	double a;
-	double b;
-	double c;
-} Scalars;
+/*!
+ *  \brief solves equation like a linear one
+ *  \param[in] scalars - parameters
+ *  \param[out] roots - roots of equation
+ */
+void linear_solve(const Scalars scalars, Roots* roots);
 
-#define EPS 0.001
-/*solves equation like a linear one*/
-Roots linear_solve(const Scalars scalars);
+/*!
+ *  \brief solves equation like a linear one
+ *  \param[in] scalars - parameters
+ *  \param[out] roots - roots of equation
+ */
+void quadratic_solve(const Scalars scalars, Roots* roots);
 
-/*solves equation like a quadratic one*/
-Roots quadratic_solve(const Scalars scalars);
-
-/*atof which handles ','*/
+/*!
+ *	\brief atof which also hadles ','
+ *	\param[in] s - string to be converted to number
+ */
 double almost_my_atof(const char s[]);
 
-/*checks if program is run with correct arguments*/
-Scalars parse_arguments(int argc, char *argv[]);
-
-/*checks if argument is a valid number*/
+/*!
+ *	\brief checks if line is a vild number
+ *	\param[in] arg - line to be checked
+ */
 int is_argument_valid(const char* const arg);
 
-/*compares two double with EPS precision*/
-int float_equals(const double a, const double b, const double eps);
-
-/*function to fix -0.000000*/
+/*!
+ *	\brief if a number is close to zero, like -0.0000 it will be rounded
+ *	\param[in] a - number to be rounded
+ */
 double round_to_zero(const double a);
 
-/*prints "documentaion"*/
+/*!
+ *	\brief prints some helpful info
+ */
 void print_doc();
 
 #endif
