@@ -29,6 +29,12 @@ enum SIGN
 	POS =  1
 };
 
+enum ARGS_TYPE
+{
+	HELP = 1,
+	EQUATION = 3
+}
+
 //**********************************DEFINITIONS**********************************
 
 int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
@@ -42,7 +48,7 @@ int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 
 	switch (tokens_len)
 	{
-		case 1:
+		case HELp:
 			if (strcmp(tokens[0], "help") == 0)
 			{
 				print_doc();
@@ -53,7 +59,7 @@ int get_scalars(char** tokens, size_t tokens_len, Scalars* scalars)
 			}
 			return FAILURE;
 			break;
-		case 3:													//calling with 3 scalars of equation
+		case EQUATION:												//calling with 3 scalars of equation
 			if (   is_argument_valid(tokens[0]) 
 				&& is_argument_valid(tokens[1])
 				&& is_argument_valid(tokens[2]))
